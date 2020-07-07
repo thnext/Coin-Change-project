@@ -13,43 +13,39 @@ namespace CoinChange
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("enter change");
-            string x = Console.ReadLine();
+            // canonical coin systems
+
             int[] C = new int[] { 100, 50, 20, 10, 5, 2, 1 };
-            do
+
+            Console.WriteLine("enter the change:");
+
+            int change = int.Parse(Console.ReadLine());
+
+            if (change == 0)
             {
-               
-                try
-                {
-                    int change = int.Parse(x);
-                    Makechange(C, change);
-                }
-                catch
-                {
-                    Console.WriteLine("wrong input! (please enter a positive intreger value)");
-                }
-                finally
-                {
-                    Console.WriteLine("Continue? (type Y/N)");
-                }
-
-            } while (Console.ReadLine() == "y");
-           
-        }
-        public static void Makechange(int[] coins, int value)
-        {
-            int howmany;
-            foreach (int item in coins)
-            {
-                 if (value >= item)
-                 {
-                    howmany = value / item;
-                    value %= item;
-                    Console.WriteLine(howmany + "*" + item + "zlt");
-
-                 }
-
+                Console.WriteLine("not possible");
             }
+            else if (change < 0)
+            {
+                Console.WriteLine("input should be a positive integer");
+            }
+            else
+            {
+                Makechange(C, change);
+            }
+        }
+        public static void Makechange(int[] coins, int change)
+        {
+            for (int x = 0; x <= coins.Length - 1; x++)
+            {
+                if (change >= coins[x])
+                {
+                    int howmany = change / coins[x];
+                    change %= coins[x];
+                    Console.WriteLine(howmany + "*" + coins[x] + "zlt");
+                }
+            }
+            _ = Console.ReadLine();
         }
     }
 }
